@@ -16,15 +16,13 @@
 
 FROM debian:stable
 
-RUN apt-get update
+RUN apt-get update && apt-get install -y \
+  anki \
+  fonts-vlgothic \
+  ibus-mozc \
+  locales
 
-# Credits: https://wiki.debian.org/Locale
-RUN apt-get install -y locales
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen
-
-RUN apt-get install -y fonts-vlgothic
-RUN apt-get update && apt-get install -y ibus-mozc
-RUN apt-get install -y anki
 
 # Might only work if your host user and group IDs are both 1000.
 ENV HOME /home/anki-user
