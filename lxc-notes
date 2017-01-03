@@ -1,0 +1,36 @@
+=== host
+apt install lxc
+Follow https://wiki.debian.org/LXC#Networked_quickstart_for_Debian_Stretch_.28testing_as_of_Q3_2016.29
+
+lxc-create -n anki -t debian -- -r jessie
+lxc-start -n anki
+lxc-attach -n anki
+
+=== setup in container
+
+apt update
+apt install -y anki dbus-x11 fonts-vlgothic ibus-mozc locales x11-xkb-utils
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen
+ln -nsf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
+useradd --create-home anki
+
+== run
+
+# TODO display is trouble
+# TODO see probably https://wiki.archlinux.org/index.php/Linux_Containers
+# also how does Docker work?  perh it's about the .Xauthority
+# Ah, also /tmp/.X11-unix ; see https://github.com/lxc/lxc/issues/434
+lxc-attach -n anki \
+  -v LANG=en_US.UTF-8 \
+  -v XMODIFIERS=@im=ibus \
+  -v DISPLAY=unix"$DISPLAY" \
+  -- sudo -iu anki 'ibus-daemon -xd && anki'
+
+--
+
+WORKDIR $HOME
+USER anki-user
+ENV LANG en_US.UTF-8
+ENV XMODIFIERS @im=ibus
+CMD /bin/bash -c "(/usr/bin/ibus-daemon -xd; /usr/bin/anki;)"
+
