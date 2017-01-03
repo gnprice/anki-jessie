@@ -1,9 +1,9 @@
 
+apt install schroot debootstrap
+
 mkdir -p /srv/anki
 mkdir /srv/anki/chroot
 sudo debootstrap jessie /srv/anki/chroot http://deb.debian.org/debian/
-
-apt install schroot
 
 sudo tee /etc/schroot/chroot.d/anki.conf >/dev/null <<EOF
 [anki]
@@ -15,22 +15,11 @@ preserve-environment=true
 users=greg
 EOF
 
-schroot -c anki  # gives a shell
-
-# Aborted attempt to scriptify the "in schroot" section below.
-#  SESSION=$(schroot -c anki -u root -b)
-#  schroot -r -c "$SESSION" -- apt install -y anki locales fonts-vlgothic
-#  echo "en_US.UTF-8 UTF-8" | schroot -r -c "$SESSION" -- tee /etc/locale.gen
-#  schroot -r -c "$SESSION" -- locale-gen
-
 == in schroot
 
 apt install -y anki locales fonts-vlgothic
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen
 ln -nsf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
-
-# possibly also useful, copied from before
-# apt install -y dbus-x11 ibus-mozc x11-xkb-utils
 
 == to use
 
