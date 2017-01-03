@@ -1,0 +1,29 @@
+
+mkdir -p /srv/anki
+mkdir /srv/anki/chroot
+sudo debootstrap jessie /srv/anki/chroot http://deb.debian.org/debian/
+
+apt install schroot
+# set up schroot, see /etc/schroot/chroot.d/anki.conf
+# key is profile=desktop
+
+schroot -c anki
+
+== in schroot
+
+su - greg -c xeyes  # works already, after `apt install x11-apps`
+
+apt install -y anki locales fonts-vlgothic
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen
+ln -nsf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
+
+# possibly also useful, copied from before
+# apt install -y dbus-x11 ibus-mozc x11-xkb-utils
+
+== to use
+
+# TODO pull most details into schroot config
+sudo schroot -c anki -u greg -- sh -c \
+  "LANG=$LANG DISPLAY=$DISPLAY /usr/bin/anki"
+
+# TODO fcitx
