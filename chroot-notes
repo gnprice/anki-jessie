@@ -4,14 +4,26 @@ mkdir /srv/anki/chroot
 sudo debootstrap jessie /srv/anki/chroot http://deb.debian.org/debian/
 
 apt install schroot
-# set up schroot, see /etc/schroot/chroot.d/anki.conf
-# key is profile=desktop
 
-schroot -c anki
+sudo tee /etc/schroot/chroot.d/anki.conf >/dev/null <<EOF
+[anki]
+description=Anki on jessie
+type=directory
+directory=/srv/anki/chroot
+profile=desktop
+preserve-environment=true
+users=greg
+EOF
+
+schroot -c anki  # gives a shell
+
+# Aborted attempt to scriptify the "in schroot" section below.
+#  SESSION=$(schroot -c anki -u root -b)
+#  schroot -r -c "$SESSION" -- apt install -y anki locales fonts-vlgothic
+#  echo "en_US.UTF-8 UTF-8" | schroot -r -c "$SESSION" -- tee /etc/locale.gen
+#  schroot -r -c "$SESSION" -- locale-gen
 
 == in schroot
-
-su - greg -c xeyes  # works already, after `apt install x11-apps`
 
 apt install -y anki locales fonts-vlgothic
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen
@@ -22,8 +34,4 @@ ln -nsf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 
 == to use
 
-# TODO pull most details into schroot config
-sudo schroot -c anki -u greg -- sh -c \
-  "LANG=$LANG DISPLAY=$DISPLAY /usr/bin/anki"
-
-# TODO fcitx
+schroot -c anki -- anki
