@@ -1,3 +1,4 @@
+# TODO: clean out the Docker and lxc images I made earlier
 
 apt install schroot debootstrap
 
