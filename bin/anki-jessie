@@ -1,8 +1,10 @@
 #!/bin/bash
 # For building the `debian-anki` image, see ~/lib/anki-docker/config/.
-exec sudo docker run -ti --rm -e DISPLAY=unix"$DISPLAY" \
+exec sudo docker run -ti --rm \
+     -e DISPLAY=unix"$DISPLAY" \
      -v "$HOME"/Anki:/home/anki-user/Anki \
+     -v "$HOME"/Dropbox/backup/anki:/home/anki-user/Dropbox/backup/anki \
      -v "$HOME"/.mozc:/home/anki-user/.mozc \
-     -v "$HOME"/.Xauthority:/home/anki-uesr/.Xauthority \
+     -v "$HOME"/.Xauthority:/home/anki-user/.Xauthority \
      --net=host \
      debian-anki

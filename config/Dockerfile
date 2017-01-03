@@ -18,11 +18,14 @@ FROM debian:stable
 
 RUN apt-get update && apt-get install -y \
   anki \
+  dbus-x11 \
   fonts-vlgothic \
   ibus-mozc \
-  locales
+  locales \
+  x11-xkb-utils
 
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen
+RUN ln -nsf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 
 # Might only work if your host user and group IDs are both 1000.
 ENV HOME /home/anki-user
@@ -32,7 +35,7 @@ RUN useradd --create-home --home-dir $HOME anki-user \
 WORKDIR $HOME
 USER anki-user
 ENV LANG en_US.UTF-8
-ENV XMODIFIERS @im=ibus # ADAPT – Japanese IME again.
+ENV XMODIFIERS @im=ibus
 CMD /bin/bash -c "(/usr/bin/ibus-daemon -xd; /usr/bin/anki;)"
 
 
