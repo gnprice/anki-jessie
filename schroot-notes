@@ -18,7 +18,7 @@ EOF
 
 == in schroot
 
-apt install -y anki locales fonts-vlgothic
+apt install -y anki locales fonts-vlgothic mplayer
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen
 ln -nsf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 
