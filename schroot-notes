@@ -1,9 +1,15 @@
 # TODO: clean out the Docker and lxc images I made earlier
 
-apt install schroot debootstrap
+== global setup
 
-mkdir -p /srv/anki
-mkdir /srv/anki/chroot
+sudo apt install schroot debootstrap
+sudo mkdir -p /srv/anki
+
+== create schroot
+
+# Vary the path, and the schroot config filename, header, and description.
+
+sudo mkdir /srv/anki/chroot
 sudo debootstrap jessie /srv/anki/chroot http://deb.debian.org/debian/
 
 sudo tee /etc/schroot/chroot.d/anki.conf >/dev/null <<EOF
