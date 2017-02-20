@@ -1,5 +1,3 @@
-# TODO: clean out the Docker and lxc images I made earlier
-
 == global setup
 
 sudo apt install schroot debootstrap
