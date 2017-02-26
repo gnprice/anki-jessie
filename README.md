@@ -18,7 +18,7 @@ After the setup below, this command runs Anki:
 
 The resulting Anki has full access to my homedir (notably `~/Anki`),
 my network connection, and my desktop environment, including the input
-method I use for typing Japanese.
+method (`fcitx`) I use for typing Japanese.
 
 ## Setup
 
@@ -61,7 +61,8 @@ Now `schroot -c anki -- anki` should work!
 ## Variations
 
 The `fonts-vlgothic` package included above is one I use for Japanese.
-You may want other fonts packages for other languages.
+You may want other fonts packages for other languages.  (E.g., for
+Chinese, perhaps `fonts-arphic-uming fonts-wqy-zenhei`.)
 
 I later made a second chroot for Anki development.  For any
 additional chroot, vary the `/srv/anki/$foo` path and the
