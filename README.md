@@ -10,7 +10,7 @@ Fortunately, `schroot` provides a simple and lightweight way to create
 a Debian 8 "jessie" environment on a "stretch" system and run a stable
 Anki from there.
 
-### Usage
+## Usage
 
 After the setup below, this command runs Anki:
 
@@ -20,7 +20,7 @@ The resulting Anki has full access to my homedir (notably `~/Anki`),
 my network connection, and my desktop environment, including the input
 method I use for typing Japanese.
 
-### Setup
+## Setup
 
 Install `schroot`, which will facilitate entering the chroot, and
 `debootstrap`, which will populate it with "jessie" files:
@@ -58,7 +58,7 @@ sudo schroot -c anki -- apt install -y anki locales mplayer fonts-vlgothic
 
 Now `schroot -c anki -- anki` should work!
 
-### Variations
+## Variations
 
 The `fonts-vlgothic` package included above is one I use for Japanese.
 You may want other fonts packages for other languages.
