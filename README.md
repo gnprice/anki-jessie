@@ -53,7 +53,7 @@ and install Anki and allied packages:
 ```
 sudo cp {,/srv/anki/chroot}/etc/locale.gen
 sudo cp -P {,/srv/anki/chroot}/etc/localtime
-sudo schroot -c anki -- apt install -y anki locales mplayer fonts-vlgothic
+sudo schroot -c anki -- apt install -y anki locales mplayer fonts-vlgothic fonts-takao
 ```
 
 Now `schroot -c anki -- anki` should work!
