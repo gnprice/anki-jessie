@@ -62,7 +62,12 @@ Now `schroot -c anki -- anki` should work!
 
 The `fonts-vlgothic` package included above is one I use for Japanese.
 You may want other fonts packages for other languages.  (E.g., for
-Chinese, perhaps `fonts-arphic-uming fonts-wqy-zenhei`.)
+Chinese, perhaps `fonts-arphic-uming fonts-wqy-zenhei`.)  Or copy in
+fonts from the host; for example:
+```
+sudo rsync -av {,/srv/anki/chroot}/usr/share/fonts/
+sudo schroot -c anki -- fc-cache -v
+```
 
 I later made a second chroot for Anki development.  For any
 additional chroot, vary the `/srv/anki/$foo` path and the
